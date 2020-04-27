@@ -247,6 +247,8 @@ open class MasterScheduleManager : SBAScheduleManager {
             }
         })
         
+        return step!.items[0]
+        
         // Now that they are sorted, look for the first item that we haven't already viewed
         for item in step!.items {
             if (!self.profileManager!.insightIdentifiers.contains(item.identifier)) {

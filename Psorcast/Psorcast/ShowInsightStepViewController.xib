@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShowInsightStepViewController" customModule="Psorcast" customModuleProvider="target">
             <connections>
+                <outlet property="headerImage" destination="HoU-lm-CJa" id="yVa-Nz-s9m"/>
                 <outlet property="navigationHeader" destination="CCa-ub-K9O" id="ez2-Os-qFV"/>
                 <outlet property="noButton" destination="JQL-Sr-GHo" id="1W5-Fq-sDk"/>
                 <outlet property="view" destination="iN0-l3-epB" id="oDz-fG-usR"/>

@@ -106,6 +106,29 @@ public class ShowInsightStepViewController: RSDStepViewController {
 
     @IBOutlet weak var noButton: HorizontallyCenteredButton!
     @IBOutlet weak var yesButton: HorizontallyCenteredButton!
+    @IBOutlet weak var headerImage: UIImageView!
+    
+    override open func viewDidLoad() {
+        super.viewDidLoad()
+        
+        //self.imageTheme = RSDFetchableImageThemeElementObject(imageName: "ProfileTabIcon")
+    }
+    
+    func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
+    }
+    
+    func downloadImage(from url: URL) {
+        print("Download Started")
+        getData(from: url) { data, response, error in
+            guard let data = data, error == nil else { return }
+            print(response?.suggestedFilename ?? url.lastPathComponent)
+            print("Download Finished")
+            DispatchQueue.main.async() {
+//                self.imageView.image = UIImage(data: data)
+            }
+        }
+    }
     
     @IBAction func yesButtonTapped(_ sender: Any) {
         finish(useful: true)
