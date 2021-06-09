@@ -360,6 +360,15 @@ open class MasterScheduleManager : SBAScheduleManager {
     open var treatmentsAvailable: [TreatmentItem]? {
         return (self.treatmentTask?.stepNavigator.step(with: TreatmentResultIdentifier.treatments.rawValue) as? TreatmentSelectionStepObject)?.items
     }
+
+    open var consentTask: RSDTask? {
+        return SBABridgeConfiguration.shared.task(for: RSDIdentifier.consentTask.rawValue)
+    }
+    
+    open func instantiateConsentTaskController() -> RSDTaskViewController? {
+        guard let task = self.consentTask else { return nil }
+        return RSDTaskViewController(task: task)
+    }
     
     open var treatmentTask: RSDTask? {
         return SBABridgeConfiguration.shared.task(for: RSDIdentifier.treatmentTask.rawValue)

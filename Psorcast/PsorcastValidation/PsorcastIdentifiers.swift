@@ -37,6 +37,9 @@ import MotorControl
 
 public extension RSDIdentifier {
     
+    // Onboarding tasks
+    static let consentTask: RSDIdentifier = "Consent"
+    
     // Measuring tasks
     static let walkingTask: RSDIdentifier = MCTTaskIdentifier.walk30Seconds.identifier    
     static let handImagingTask: RSDIdentifier = "HandImaging"

@@ -88,7 +88,9 @@ class AppDelegate: SBAAppDelegate, RSDTaskViewControllerDelegate, ShowPopTipDele
         } else if isAuthenticated && hasSetTreatments {
             self.showMainViewController(animated: animated)
         } else if isAuthenticated {
-            self.showTreatmentSelectionScreens(animated: true)
+            self.showConsentScreens(animated: true)
+            //self.showOnboardingScreens(animated: true)
+            //self.showTreatmentSelectionScreens(animated: true)
         } else {
             self.showIntroductionScreens(animated: animated)
         }
@@ -154,6 +156,19 @@ class AppDelegate: SBAAppDelegate, RSDTaskViewControllerDelegate, ShowPopTipDele
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "TabBarViewController")
         self.transition(to: vc, state: .main, animated: true)
+    }
+    
+    func showConsentScreens(animated: Bool) {
+        guard let vc = MasterScheduleManager.shared.instantiateConsentTaskController() else {
+            debugPrint("WARNING! Failed to create consent task from app config")
+            let alert = UIAlertController(title: "Connectivity issue", message: "We had trouble loading information from our server.  Please close the app and then try again.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Okay", style: .default, handler: nil))
+            self.rootViewController?.present(alert, animated: true)
+            return
+        }
+        
+        vc.delegate = self
+        self.transition(to: vc, state: .consent, animated: true)
     }
     
     func showTreatmentSelectionScreens(animated: Bool) {
@@ -340,6 +355,8 @@ class AppDelegate: SBAAppDelegate, RSDTaskViewControllerDelegate, ShowPopTipDele
             }
             return
         }
+        
+        // TODO: handle onboarding, eligiblity conclusions
                 
         if taskController.task.identifier == RSDIdentifier.treatmentTask.rawValue {
             // If we finish the treatment screen by cancelling, show the sign in screen again
